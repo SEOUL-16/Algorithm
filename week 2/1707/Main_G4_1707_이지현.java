@@ -6,14 +6,13 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-// [미해결: 시간 초과]
-
-//BFS로 전체 그래프를 다 탐색,
-//인접해있으면 하나는 1, 하나는 -1로 채워넣음
-//하다가 오류가 발생하면 이분그래프가 아님
-
 // https://www.acmicpc.net/problem/1707
 // 이분 그래프
+
+//BFS로 전체 그래프를 다 탐색하는데,
+//인접해있으면 하나는 1, 하나는 -1로 채워넣는거야
+//그렇게 하다가 오류가 발생하면 이분그래프가 아닌거야
+
 public class Main_G4_1707_이지현 {
 	static int N; // 정점의 개수
 	static int M; // 간선의 개수
@@ -46,7 +45,8 @@ public class Main_G4_1707_이지현 {
 
 			isBipartite = true;
 			for (int i = 1; i <= N; i++) {
-				bfs(i);
+				if(isVisited[i] == 0)
+					bfs(i);
 			}
 
 			if(isBipartite)
@@ -57,11 +57,7 @@ public class Main_G4_1707_이지현 {
 	}
 
 	private static void bfs(int cur) {
-		int flag;
-		if(isVisited[cur] != 0)
-			flag = isVisited[cur];
-		else
-			flag = 1;
+		int flag = 1;
 		
 		Queue<Integer> queue = new LinkedList<>();
 		queue.offer(cur);
@@ -70,20 +66,22 @@ public class Main_G4_1707_이지현 {
 		while (!queue.isEmpty()) {
 			cur = queue.poll();
 
-			for (int i = 0; i < list[cur].size(); i++) {
-				if (isVisited[list[cur].get(i)] == 0) {
-					queue.offer(list[cur].get(i));
-					isVisited[list[cur].get(i)] = -flag;
+			for (int next : list[cur]) {
+				if (isVisited[next] == 0) {
+					queue.offer(next);
+					isVisited[next] = -isVisited[cur];
+					// bfs에서 while이 언제 도는지 다시 생각해보길.
+					// while 루프 한 번은 노드 하나에 대해 도는 것이지
+					// Depth 한 층에 대해 도는 것이 아님
+					// 그러므로 isVisited[cur] 이전 노드를 기준으로 flag를 세팅해야 함
 				}
 				else {
-					if(isVisited[cur] == isVisited[list[cur].get(i)]) {
+					if(isVisited[cur] == isVisited[next]) {
 						isBipartite = false;
 						return;
 					}
 				}
 			}
-			
-			flag = -flag;
 		}
 	}
 }
