@@ -1,5 +1,3 @@
-package 하_BFS;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +5,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-//https://www.acmicpc.net/problem/1963
 public class Main_G4_소수경로 {
     static int start;
     static int target;
