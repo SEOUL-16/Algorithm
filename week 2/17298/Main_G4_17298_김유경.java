@@ -1,5 +1,3 @@
-package 하_스택;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +5,7 @@ import java.util.Arrays;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class Main_G4_17298_오큰수 {
+public class Main_G4_17298_김유경{
     static int T;
     static class Data{
         int num;
